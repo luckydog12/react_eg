@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="test"></div>
+    <!-- 核心库 -->
+    <script src="./js/react.development.js"></script>
+    <!-- 支持react操作dom -->
+    <script src="./js/react-dom.development.js"></script>
+    <!-- 将jsx转为js -->
+    <script src="./js/babel.min.js"></script>
+
+    <script type="text/babel">
+      class Demo extends React.Component {
+        myRef = React.createRef()
+        // 展示左侧输入框的数据
+        showData = () => {
+          const { myRef } = this
+          console.log(myRef.current.value)
+        }
+
+        render() {
+          return (
+            <div>
+              <input ref={this.myRef} type="text" placeholder="点击按钮提示数据" />
+              &nbsp;
+              <button onClick={this.showData}>点我提示左侧的数据</button>
+            </div>
+          )
+        }
+      }
+      ReactDOM.render(<Demo />, document.getElementById("test"))
+    </script>
+  </body>
+</html>
