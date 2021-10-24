@@ -20,8 +20,10 @@
         state = { opacity: 1 }
         deleteTitle = () => {
           clearInterval(this.timer)
+          // 卸载组件
           ReactDOM.unmountComponentAtNode(document.getElementById("test"))
         }
+        // 组件挂载完毕
         componentDidMount() {
           this.timer = setTimeout(() => {
             let opacity = this.state.opacity
@@ -31,6 +33,10 @@
             }
             this.setState({ opacity })
           }, 500)
+        }
+
+        componentWillUnmount() {
+          console.log("组件将要卸载")
         }
         render() {
           return (

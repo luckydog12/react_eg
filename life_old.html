@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="test"></div>
+    <!-- 核心库 -->
+    <script src="./js/react.development.js"></script>
+    <!-- 支持react操作dom -->
+    <script src="./js/react-dom.development.js"></script>
+    <!-- 将jsx转为js -->
+    <script src="./js/babel.min.js"></script>
+
+    <script type="text/babel">
+      // Count-constructor
+      // Count-componentWillMount
+      // Count-render
+      // Count-componentDidMount
+      class Count extends React.Component {
+        // 构造器
+        constructor(props) {
+          console.log("Count-constructor")
+          super(props)
+          this.state = { count: 0 }
+        }
+        add = () => {
+          let { count } = this.state
+          this.setState({ count: count + 1 })
+        }
+        unmount = () => {
+          ReactDOM.unmountComponentAtNode(document.getElementById("test"))
+        }
+        forceUpdateBtn = () => {
+          this.forceUpdate()
+        }
+        // 组件将要挂载的钩子
+        componentWillMount() {
+          console.log("Count-componentWillMount")
+        }
+        // 组件挂载完毕
+        componentDidMount() {
+          console.log("Count-componentDidMount")
+        }
+        // 组件将要被卸载
+        componentWillUnmount() {
+          console.log("Count-componentWillUnmount")
+        }
+        // 调用this.setState经历的一系列钩子 控制组件更新的阀门
+        shouldComponentUpdate() {
+          console.log("Count-shouldComponentUpdate")
+          return true
+        }
+        // 调用this.setState经历的一系列钩子 组件将要更新的钩子
+        componentWillUpdate() {
+          console.log("Count-componentWillUpdate")
+        }
+        // 调用this.setState经历的一系列钩子 组件更新完毕的钩子
+        componentDidUpdate() {
+          console.log("Count-componentDidUpdate")
+        }
+        render() {
+          console.log("Count-render")
+          const { count } = this.state
+          return (
+            <div>
+              <h2>当前求和为: {count}</h2>
+              <button onClick={this.add}>点我+1</button>
+              <button onClick={this.unmount}>卸载组件</button>
+              <button onClick={this.forceUpdateBtn}>不更改任何状态中的数据，强制更新一下</button>
+            </div>
+          )
+        }
+      }
+
+      class A extends React.Component {
+        state = { carname: "奔驰" }
+        changeCar = () => {
+          this.setState({ carname: "宝马" })
+        }
+        render() {
+          return (
+            <div>
+              <div>A</div>
+              <button onClick={this.changeCar}>换车</button>
+              <B carName={this.state.carname} />
+            </div>
+          )
+        }
+      }
+
+      class B extends React.Component {
+        render() {
+          return <div>B</div>
+        }
+      }
+      ReactDOM.render(<A />, document.getElementById("test"))
+    </script>
+  </body>
+</html>
