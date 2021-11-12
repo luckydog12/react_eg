@@ -9,11 +9,11 @@
   <body>
     <div id="test"></div>
     <!-- 核心库 -->
-    <script src="./js/react.development.js"></script>
+    <script src="./js/react17/react.development.js"></script>
     <!-- 支持react操作dom -->
-    <script src="./js/react-dom.development.js"></script>
+    <script src="./js/react17/react-dom.development.js"></script>
     <!-- 将jsx转为js -->
-    <script src="./js/babel.min.js"></script>
+    <script src="./js/react17/babel.min.js"></script>
 
     <script type="text/babel">
       // Count-constructor
@@ -37,9 +37,12 @@
         forceUpdateBtn = () => {
           this.forceUpdate()
         }
-        // 组件将要挂载的钩子
-        componentWillMount() {
-          console.log("Count-componentWillMount")
+        static getDerivedStateFromProps() {
+          console.log("getDeriveStateFromProps")
+          return null
+        }
+        getSnapshotBeforeUpdate() {
+          console.log("getSnapshotBeforeUpdate")
         }
         // 组件挂载完毕
         componentDidMount() {
@@ -53,10 +56,6 @@
         shouldComponentUpdate() {
           console.log("Count-shouldComponentUpdate")
           return true
-        }
-        // 调用this.setState经历的一系列钩子 组件将要更新的钩子
-        componentWillUpdate() {
-          console.log("Count-componentWillUpdate")
         }
         // 调用this.setState经历的一系列钩子 组件更新完毕的钩子
         componentDidUpdate() {
@@ -76,28 +75,7 @@
         }
       }
 
-      class A extends React.Component {
-        state = { carname: "奔驰" }
-        changeCar = () => {
-          this.setState({ carname: "宝马" })
-        }
-        render() {
-          return (
-            <div>
-              <div>A</div>
-              <button onClick={this.changeCar}>换车</button>
-              <B carName={this.state.carname} />
-            </div>
-          )
-        }
-      }
-
-      class B extends React.Component {
-        render() {
-          return <div>我是B，接收到的{this.props.carName}</div>
-        }
-      }
-      ReactDOM.render(<A />, document.getElementById("test"))
+      ReactDOM.render(<Count />, document.getElementById("test"))
     </script>
   </body>
 </html>
