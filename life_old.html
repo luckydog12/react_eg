@@ -86,7 +86,7 @@
             <div>
               <div>A</div>
               <button onClick={this.changeCar}>换车</button>
-              <B carName={this.state.carname} />
+              <B carName={this.state.carnamegi} />
             </div>
           )
         }
@@ -94,7 +94,7 @@
 
       class B extends React.Component {
         render() {
-          return <div>我是B，接收到的{this.props.carName}</div>
+          return <div>B</div>
         }
       }
       ReactDOM.render(<A />, document.getElementById("test"))
