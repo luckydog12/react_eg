@@ -32,6 +32,7 @@ class App extends React.Component {
     this.setState({ todos: newTodos })
   }
 
+  // 删除todo
   deleteTodo = (id) => {
     const { todos } = this.state
     const newTodos = todos.filter((item) => {
@@ -39,6 +40,22 @@ class App extends React.Component {
     })
     this.setState({ todos: newTodos })
   }
+
+  // 全选-全不选
+  checkAllTodos = (done) => {
+    const { todos } = this.state
+    const newTodos = todos.map((item) => {
+      return { ...item, done }
+    })
+    this.setState({ todos: newTodos })
+  }
+  // 清除全部已经完成的todo
+  clearDoneAll = () => {
+    const { todos } = this.state
+    const newTodos = todos.filter((i) => !i.done)
+    this.setState({ todos: newTodos })
+  }
+
   render() {
     const { todos } = this.state
     return (
@@ -46,7 +63,7 @@ class App extends React.Component {
         <div className="todo-wrap">
           <Header addTodo={this.addTodo} />
           <List todos={todos} updateTodo={this.updateTodo} deleteTodo={this.deleteTodo} />
-          <Footer />
+          <Footer todos={todos} checkAllTodos={this.checkAllTodos} clearDoneAll={this.clearDoneAll} />
         </div>
       </div>
     )
