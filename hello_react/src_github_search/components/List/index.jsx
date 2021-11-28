@@ -1,20 +1,9 @@
 import React, { Component } from "react"
-import PubSub from "pubsub-js"
 
 export default class index extends Component {
-  state = {
-    users: [],
-    isFirst: true,
-    isLoading: false,
-    err: "",
-  }
-  componentDidMount() {
-    PubSub.subscribe("luckydog", (_, data) => {
-      console.log(data)
-    })
-  }
   render() {
-    const { users, isFirst, isLoading, err } = this.state
+    const { users, isFirst, isLoading, err } = this.props
+    console.log(this.props)
     return (
       <div className="row">
         {isFirst ? (
